@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import {
   X,
   ShieldCheck,
@@ -9,7 +8,6 @@ import {
   Share2,
   Copy,
   Check,
-  Award,
   AlertTriangle,
   CheckCircle2,
 } from 'lucide-react';
@@ -44,26 +42,37 @@ export const QuickAuditModal: React.FC<QuickAuditModalProps> = ({ isOpen, onClos
   useEffect(() => {
     if (!isOpen) return;
 
-    const dataString = JSON.stringify({
-      mesa: mesaConfig.mesaNumber,
-      padron: mesaConfig.totalPadron,
-      votes: candidates.map((c) => ({ id: c.id, v: c.votes })),
-    });
+    let isMounted = true;
+    const compute = async () => {
+      const dataString = JSON.stringify({
+        mesa: mesaConfig.mesaNumber,
+        padron: mesaConfig.totalPadron,
+        votes: candidates.map((c) => ({ id: c.id, v: c.votes })),
+      });
 
-    if (typeof window !== 'undefined' && window.crypto && window.crypto.subtle) {
-      const msgBuffer = new TextEncoder().encode(dataString);
-      window.crypto.subtle
-        .digest('SHA-256', msgBuffer)
-        .then((buf) => {
+      if (typeof window !== 'undefined' && window.crypto && window.crypto.subtle) {
+        try {
+          const msgBuffer = new TextEncoder().encode(dataString);
+          const buf = await window.crypto.subtle.digest('SHA-256', msgBuffer);
           const arr = Array.from(new Uint8Array(buf));
-          setHashValue(arr.map((b) => b.toString(16).padStart(2, '0')).join(''));
-        })
-        .catch(() => {
-          setHashValue('e8b94f71a0c24d983e84bf9d29f0a6d4c1b92a34fcb19357');
-        });
-    } else {
-      setHashValue('e8b94f71a0c24d983e84bf9d29f0a6d4c1b92a34fcb19357');
-    }
+          if (isMounted) {
+            setHashValue(arr.map((b) => b.toString(16).padStart(2, '0')).join(''));
+          }
+          return;
+        } catch {
+          // Fallback below
+        }
+      }
+      if (isMounted) {
+        setHashValue('e8b94f71a0c24d983e84bf9d29f0a6d4c1b92a34fcb19357');
+      }
+    };
+
+    void compute();
+
+    return () => {
+      isMounted = false;
+    };
   }, [isOpen, candidates, mesaConfig]);
 
   useEffect(() => {

@@ -10,7 +10,7 @@ interface ResetConfirmModalProps {
 }
 
 export const ResetConfirmModal: React.FC<ResetConfirmModalProps> = ({ isOpen, onClose }) => {
-  const { resetToInitial, showToast } = useElectionStore();
+  const { resetToInitial } = useElectionStore();
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {

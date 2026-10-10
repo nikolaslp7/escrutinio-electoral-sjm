@@ -21,7 +21,7 @@ export const triggerHaptic = (type: 'light' | 'medium' | 'heavy' | 'warning' | '
         navigator.vibrate([25, 40, 60]);
         break;
     }
-  } catch (e) {
+  } catch {
     // Vibration may be restricted by permissions or unsupported
   }
 };

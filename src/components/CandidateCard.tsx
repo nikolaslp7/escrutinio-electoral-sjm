@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Minus, ArrowRightLeft, Crown, Award, Check } from 'lucide-react';
+import { Plus, Minus, ArrowRightLeft, Crown } from 'lucide-react';
 import { Candidate } from '@/types/election';
 import { useElectionStore } from '@/store/useElectionStore';
 

@@ -74,7 +74,7 @@ export async function sharePdfReport(
       try {
         await downloadPdfFile(candidates, stats, mesaConfig, heroCandidate, heroRank, filename);
         if (onNotify) onNotify('Descarga de PDF iniciada', 'info');
-      } catch (e) {
+      } catch {
         if (onNotify) onNotify('No se pudo compartir el archivo PDF', 'error');
       }
     }

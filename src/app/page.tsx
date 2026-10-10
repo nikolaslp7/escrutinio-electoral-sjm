@@ -8,7 +8,7 @@ import { CandidateList } from '@/components/CandidateList';
 import { QuickAuditModal } from '@/components/QuickAuditModal';
 import { ResetConfirmModal } from '@/components/ResetConfirmModal';
 import { Toast } from '@/components/Toast';
-import { Shield, Sparkles, CheckCircle, Smartphone } from 'lucide-react';
+import { Shield } from 'lucide-react';
 
 export default function Home() {
   const [isAuditOpen, setIsAuditOpen] = useState(false);

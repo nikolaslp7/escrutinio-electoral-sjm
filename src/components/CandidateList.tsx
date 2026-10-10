@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Search, X, ListFilter, SlidersHorizontal } from 'lucide-react';
+import { Search, X, ListFilter } from 'lucide-react';
 import { useElectionStore } from '@/store/useElectionStore';
 import { CandidateCard } from './CandidateCard';
 

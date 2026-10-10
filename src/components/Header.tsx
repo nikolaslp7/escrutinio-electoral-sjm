@@ -8,7 +8,6 @@ import {
   VolumeX,
   FileText,
   Share2,
-  ShieldCheck,
   RotateCcw as ResetIcon,
   BarChart3,
 } from 'lucide-react';
